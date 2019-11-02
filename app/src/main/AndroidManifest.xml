@@ -21,10 +21,15 @@
         <activity android:name=".ReqListAdapter" />
 
         <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
+
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD_y7LcmR_RBzMaUm4-xlRVVLCqpnW2zWc" />
 
         <activity android:name=".ComRequestActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".RequestActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
