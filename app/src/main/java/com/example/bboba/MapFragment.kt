@@ -1,14 +1,19 @@
 package com.example.bboba
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.slidingpanelayout.widget.SlidingPaneLayout
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -20,7 +25,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.fragment_list.*
+import java.time.ZoneOffset
+
+
+import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener
+import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,6 +53,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     private var listener: OnFragmentInteractionListener? = null
     private lateinit var mapView: MapView
 
+    private var mLayout : SlidingUpPanelLayout? = null
+    private lateinit var lv : RecyclerView
+
     //Firebase 변수
     private val reqData = ArrayList<Prints_Request>()
     private val database = FirebaseDatabase.getInstance()
@@ -52,6 +66,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+
+
+
         }
 
         //FIrebase 값 읽기
@@ -68,11 +85,22 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
                             h.child("print_fb").value as String, h.child("print_color").value as String,
                             h.child("picture_location").value as String))
                 }
+
+                list_recyclerview.apply { //데이터 뽑은 후 출력
+                    layoutManager = LinearLayoutManager(activity?:return)
+                    adapter = ReqCardAdapterMap(reqData)
+                }
+
             }
             override fun onCancelled(p0: DatabaseError) {
             }
         })
         //데이터들은 reqData 배열 안에 들어있다
+
+
+
+
+
     }
 
     //onCreateView에서 View와 GoogleMap 초기화
@@ -88,8 +116,24 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         mapView = layout.findViewById(R.id.map) as MapView
         mapView.getMapAsync(this)
 
+        lv = layout.findViewById(R.id.list_recyclerview) as RecyclerView
+
+        mLayout = layout.findViewById(R.id.sliding_layout) as SlidingUpPanelLayout
+
+        mLayout!!.setFadeOnClickListener { mLayout!!.panelState = PanelState.COLLAPSED }
+
         return layout
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        list_recyclerview.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = ReqCardAdapterMap(reqData)
+        }
+    }
+
+
     //여기부터
 
     override fun onStart() {
@@ -199,5 +243,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
                     putString(ARG_PARAM2, param2)
                 }
             }
+
+        fun newInstance(): ListFragment = ListFragment()
     }
 }

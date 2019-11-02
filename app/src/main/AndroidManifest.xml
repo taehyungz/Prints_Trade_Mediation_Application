@@ -4,6 +4,9 @@
     package="com.example.bboba">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -13,13 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ReqCardAdapterMap"></activity>
+        <activity android:name=".ReqCarAdapterMap" />
+        <activity android:name=".ReqListAdapter" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD_y7LcmR_RBzMaUm4-xlRVVLCqpnW2zWc" />
 
-        <activity android:name=".ComRequestActivity"></activity>
-        <activity android:name=".RequestActivity" ></activity>
+        <activity android:name=".ComRequestActivity" />
+        <activity android:name=".RequestActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,8 +36,5 @@
         <activity android:name=".GiveMainActivity" />
         <activity android:name=".DetailReqActivity" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>
