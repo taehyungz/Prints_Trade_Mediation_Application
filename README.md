@@ -53,5 +53,4 @@
 * Nexus 5X (Android 7, API 24)
 
 ## License  
-MIT License  
-MIT © TaeHyung Kwon
+GNU GPLv3 © TaeHyung Kwon
