@@ -25,6 +25,7 @@
   
   **프린트물 요청 페이지**  
 요청 페이지에서 날짜와 시간, 만날 장소를 정한 후 요청글을 작성 완료합니다.  
+Google의 API를 사용하여 해당 지점에서 가장 가까운 건물의 이름을 화면에 띄워줍니다.  
   
 <img align="left" width="200px" height="400px" src="read_me_images/login.PNG">
 <img align="center width="200px" height="400px" src="read_me_images/menu.PNG">  
